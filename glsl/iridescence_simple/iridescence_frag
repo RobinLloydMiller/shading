@@ -33,6 +33,7 @@ float setRange(float value, float oMin, float oMax, float iMin, float iMax){
 }
 
 float diNoise(vec3 pos){
+	//noise function to create irregularity
 	float mult = 1;
 	float oset = 45;		//offset
 	return	sin(pos.x*mult*2 + 12 + oset) + cos(pos.z*mult + 21 + oset) *
