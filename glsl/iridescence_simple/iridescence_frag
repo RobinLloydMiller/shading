@@ -52,7 +52,7 @@ vec3 iridescence(float orient){
 }
 
 void main(){
-	float Ki = 1.0;
+	float Ki = 1.0;			//constant iridescence multiplicator
 	vec4 iridColor = vec4(iridescence(fr), 1.0) * setRange(pow(1 - fr, 1/0.75), 0, 1, 0.1, 1);
 	gl_FragColor = iridColor*Ki;
 }
