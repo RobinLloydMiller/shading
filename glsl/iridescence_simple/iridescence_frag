@@ -35,15 +35,15 @@ float setRange(float value, float oMin, float oMax, float iMin, float iMax){
 float diNoise(vec3 pos){
 	float freq = 1;
 	float oset = 10;
-	return	sin(pos.x*freq*2 + 12 + oset) + cos(pos.z*freq + 21 + oset) * 
-		      sin(pos.y*freq*2 + 23 + oset) + cos(pos.y*freq + 32 + oset) *
-		      sin(pos.z*freq*2 + 34 + oset) + cos(pos.x*freq + 43 + oset);
+	return	sin(pos.x*freq*2 + 12 + oset) + cos(pos.z*freq + 21 + oset) *
+		sin(pos.y*freq*2 + 23 + oset) + cos(pos.y*freq + 32 + oset) *
+		sin(pos.z*freq*2 + 34 + oset) + cos(pos.x*freq + 43 + oset);
 }
 
 vec3 iridescence(float orient){
 	vec3 irid;
 	float freq = 10;
-	float oset = 0;
+	float oset = 25;
 	float noiseMult = 1;
 	irid.x = abs(cos(orient*freq + diNoise(P)*noiseMult + 1 + oset));
 	irid.y = abs(cos(orient*freq + diNoise(P)*noiseMult + 2 + oset));
