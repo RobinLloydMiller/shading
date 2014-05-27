@@ -3,4 +3,4 @@ shading
 
 shader authoring repository
 
-RSL, GLSL, OSL, VEX, HLSL..
+RSL, GLSL, OSL, VEX, HLSL, CgFX..
