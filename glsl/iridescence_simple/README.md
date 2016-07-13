@@ -1,2 +1,2 @@
 simple iridescence shader
-<iframe width="854" height="480" src="https://vimeo.com/83798053" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/83798053?color=ff0179" width="640" height="509" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/83798053">glsl :: iridescent shader</a> from <a href="https://vimeo.com/user1508586">Diego In&aacute;cio</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
