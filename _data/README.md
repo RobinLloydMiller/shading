@@ -1,0 +1,1 @@
+Folder with data to be used in shading tests.
