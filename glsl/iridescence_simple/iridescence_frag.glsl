@@ -37,8 +37,8 @@ float diNoise(vec3 pos){
 	float mult = 1;
 	float oset = 45;		//offset
 	return	sin(pos.x*mult*2 + 12 + oset) + cos(pos.z*mult + 21 + oset) *
-		sin(pos.y*mult*2 + 23 + oset) + cos(pos.y*mult + 32 + oset) *
-		sin(pos.z*mult*2 + 34 + oset) + cos(pos.x*mult + 43 + oset);
+			sin(pos.y*mult*2 + 23 + oset) + cos(pos.y*mult + 32 + oset) *
+			sin(pos.z*mult*2 + 34 + oset) + cos(pos.x*mult + 43 + oset);
 }
 
 vec3 iridescence(float orient){

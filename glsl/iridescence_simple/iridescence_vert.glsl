@@ -29,10 +29,10 @@ varying vec3 P;
 varying float fr;
 
 void main(){
-	P = gl_Vertex;							//vertex position vector
-	vec3 N = gl_NormalMatrix * gl_Normal;				//vertex normal vector
-	vec3 V = gl_ModelViewMatrix * gl_Vertex;			//eye to vertex vector
-	vec3 E = normalize(-V);						//normalized vertex to eye vector
-	fr = dot(N, E);							//facing ratio
+	P = gl_Vertex;											//vertex position vector
+	vec3 N = gl_NormalMatrix * gl_Normal;					//vertex normal vector
+	vec3 V = gl_ModelViewMatrix * gl_Vertex;				//eye to vertex vector
+	vec3 E = normalize(-V);									//normalized vertex to eye vector
+	fr = dot(N, E);											//facing ratio
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }
