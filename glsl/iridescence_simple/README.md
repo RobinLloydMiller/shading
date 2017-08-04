@@ -1,3 +1,3 @@
 A simple iridescent shader using OpenGL Shading Language
 
-<iframe src="https://player.vimeo.com/video/83798053?color=ff0179" width="640" height="509" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/83798053">glsl :: iridescent shader</a> from <a href="https://vimeo.com/user1508586">Diego In&aacute;cio</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<iframe src="https://player.vimeo.com/video/83798053?color=c9ff23" width="1024" height="614" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
