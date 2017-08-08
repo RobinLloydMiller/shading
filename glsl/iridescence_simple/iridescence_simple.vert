@@ -1,9 +1,9 @@
 /*...................................................................................................
 Author: Diego Inácio
 Shader: iridescence 01
-Version: 1.0.0
+Version: 2.0.0
 Dev.: OpenGL Shading Language
-Date Upadated: JAN/09/2014
+Date Upadated: AUG/08/2017
 www.diegoinacio.com
 .....................................................................................................
 Vertex part of a simple iridescent shader using OpenGL Shading Language.
@@ -24,15 +24,14 @@ Resources:
 <OpenGL>
 http://www.opengl.org/
 ...................................................................................................*/
-
-varying vec3 P;
+varying vec4 P;
 varying float fr;
 
-void main(){
-	P = gl_Vertex;											//vertex position vector
-	vec3 N = gl_NormalMatrix * gl_Normal;					//vertex normal vector
-	vec3 V = gl_ModelViewMatrix * gl_Vertex;				//eye to vertex vector
-	vec3 E = normalize(-V);									//normalized vertex to eye vector
-	fr = dot(N, E);											//facing ratio
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+void main(void){
+	P = gl_Vertex;
+	vec3 N = gl_NormalMatrix*gl_Normal;
+	vec3 V = vec3(gl_ModelViewMatrix*gl_Vertex);
+	vec3 E = normalize(-V);
+	fr = dot(N, E);
+	gl_Position = gl_ModelViewProjectionMatrix*gl_Vertex;
 }

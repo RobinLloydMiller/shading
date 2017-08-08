@@ -1,7 +1,7 @@
 /*...................................................................................................
 Author: Diego Inácio
 Shader: iridescence 01
-Version: 1.0.0
+Version: 2.0.0
 Dev.: OpenGL Shading Language
 Date Upadated: AUG/07/2017
 www.diegoinacio.com
@@ -26,16 +26,16 @@ http://www.opengl.org/
 ...................................................................................................*/
 #define PI		3.1415926535897931
 
-varying vec3	P;
+varying vec4	P;
 varying float	fr;
 
-const 	vec3	ofreq	=	{1.0, 1.0, 1.0},
-				nfreq	=	{1.0, 1.0, 1.0},
-				ooset	=	{0.0, 0.0, 0.0},
-				noset	=	{0.0, 0.0, 0.0};
-const 	float	nmult	=	1.0,
-				gamma	=	0.75,
-				minvl	=	0.0;
+const 	vec3	ofreq	=	vec3(1.0, 1.0, 1.0),		// Frequency of iridescent orientantion part.
+				nfreq	=	vec3(1.0, 1.0, 1.0),		// Frequency of iridescent noise part.
+				ooset	=	vec3(0.0, 0.0, 0.0),		// Offset of iridescent orientantion part.
+				noset	=	vec3(0.0, 0.0, 0.0);		// Offset of iridescent noise part.
+const 	float	nmult	=	1.0,						// Controls the intensity of noise.
+				gamma	=	0.75,						// Gamma correction applied to incidence value (fr).
+				minvl	=	0.0;						// Incident distribution curve control, applied after gamma correction.
 
 float setRange(float value, float oMin, float oMax, float iMin, float iMax){
 	return iMin + ((value - oMin)/(oMax - oMin))*(iMax - iMin);
@@ -43,22 +43,22 @@ float setRange(float value, float oMin, float oMax, float iMin, float iMax){
 
 float diNoise(vec3 freq, vec3 offset){
 	// noise function to create irregularity
-	return	sin(2.0*PI*P.x*freq.x*2.0 + 12 + offset.x) + cos(2.0*PI*P.z*freq.x + 21 + offset.x)*
-			sin(2.0*PI*P.y*freq.y*2.0 + 23 + offset.y) + cos(2.0*PI*P.y*freq.y + 32 + offset.y)*
-			sin(2.0*PI*P.z*freq.z*2.0 + 34 + offset.z) + cos(2.0*PI*P.x*freq.z + 43 + offset.z);
+	return	sin(2.0*PI*P.x*freq.x*2.0 + 12.0 + offset.x) + cos(2.0*PI*P.z*freq.x + 21.0 + offset.x)*
+			sin(2.0*PI*P.y*freq.y*2.0 + 23.0 + offset.y) + cos(2.0*PI*P.y*freq.y + 32.0 + offset.y)*
+			sin(2.0*PI*P.z*freq.z*2.0 + 34.0 + offset.z) + cos(2.0*PI*P.x*freq.z + 43.0 + offset.z);
 }
 
 vec3 iridescence(	float orient, float noiseMult,
 					vec3 freqA, vec3 offsetA, vec3 freqB, vec3 offsetB){
 	// this function returns a iridescence value based on orientation
 	vec3 irid;
-	irid.x = abs(cos(2*PI*orient*freqA.x + diNoise(freqB, offsetB)*noiseMult + 1 + offsetA.x));
-	irid.y = abs(cos(2*PI*orient*freqA.y + diNoise(freqB, offsetB)*noiseMult + 2 + offsetA.y));
-	irid.z = abs(cos(2*PI*orient*freqA.z + diNoise(freqB, offsetB)*noiseMult + 3 + offsetA.z));
+	irid.x = abs(cos(2.0*PI*orient*freqA.x + diNoise(freqB, offsetB)*noiseMult + 1.0 + offsetA.x));
+	irid.y = abs(cos(2.0*PI*orient*freqA.y + diNoise(freqB, offsetB)*noiseMult + 2.0 + offsetA.y));
+	irid.z = abs(cos(2.0*PI*orient*freqA.z + diNoise(freqB, offsetB)*noiseMult + 3.0 + offsetA.z));
 	return irid;
 }
 
-void main(){
+void main(void){
 	vec3 _iridColor;
 	float _space, _incidence;
 	_space = pow(1.0 - fr, 1.0/gamma);
