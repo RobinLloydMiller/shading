@@ -1,5 +1,6 @@
-<iframe src="https://player.vimeo.com/video/83798053?color=c9ff23" width="1024" height="614" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
+![title](iridescence_simple_sample.png)
 Iridescence Simple
 ==================
-A simple iridescent shader using OpenGL Shading Language
+A simple iridescent shader.
+
+*created and tested in* **OpenGL Shader Designer**
