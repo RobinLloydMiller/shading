@@ -1,0 +1,539 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.0dev
+# options: 
+shader iridescence_simple
+param	vector	ofreq	1 1 1		%read{10,160} %write{2147483647,-1}
+param	vector	nfreq	1 1 1		%read{16,218} %write{2147483647,-1}
+param	vector	ooset	0 0 0		%read{78,228} %write{2147483647,-1}
+param	vector	noset	0 0 0		%read{20,221} %write{2147483647,-1}
+param	float	nmult	1		%read{75,225} %write{2147483647,-1}
+param	float	gamma	0.45500001		%read{4,4} %write{2147483647,-1}
+oparam	color	Cout	1 1 1		%read{2147483647,-1} %write{234,234}
+global	point	P	%read{14,216} %write{2147483647,-1}
+global	vector	I	%read{0,0} %write{2147483647,-1}
+global	normal	N	%read{2,2} %write{2147483647,-1}
+local	color	___332_irid	%read{233,233} %write{82,232}
+local	color	_iridColor	%read{234,234} %write{233,233}
+local	vector	E	%read{2,2} %write{1,1}
+local	float	fr	%read{3,159} %write{2,2}
+local	float	_space	%read{6,6} %write{5,5}
+local	float	_incidence	%read{234,234} %write{6,6}
+temp	vector	$tmp1	%read{1,1} %write{0,0}
+const	int	$const1	1		%read{33,200} %write{2147483647,-1}
+temp	float	$tmp2	%read{5,5} %write{3,3}
+const	float	$const2	1		%read{3,77} %write{2147483647,-1}
+temp	float	$tmp3	%read{5,5} %write{4,4}
+const	int	$const3	0		%read{10,216} %write{2147483647,-1}
+const	float	$const4	0		%read{6,6} %write{2147483647,-1}
+const	string	$const5	"iridescence"		%read{7,7} %write{2147483647,-1}
+temp	float	$tmp4	%read{82,82} %write{81,81}
+temp	float	$tmp5	%read{81,81} %write{80,80}
+const	int	$const6	2		%read{24,232} %write{2147483647,-1}
+const	float	$const7	3.1415927		%read{8,215} %write{2147483647,-1}
+temp	float	$tmp6	%read{9,9} %write{8,8}
+const	float	$const8	2		%read{8,215} %write{2147483647,-1}
+temp	float	$tmp7	%read{11,11} %write{9,9}
+temp	float	$tmp8	%read{11,11} %write{10,10}
+temp	float	$tmp9	%read{76,76} %write{11,11}
+temp	float	$tmp10	%read{75,75} %write{74,74}
+const	string	$const9	"diNoise"		%read{12,162} %write{2147483647,-1}
+temp	float	$tmp11	%read{43,43} %write{22,22}
+temp	float	$tmp12	%read{15,15} %write{13,13}
+temp	float	$tmp13	%read{15,15} %write{14,14}
+temp	float	$tmp14	%read{17,17} %write{15,15}
+temp	float	$tmp15	%read{17,17} %write{16,16}
+temp	float	$tmp16	%read{18,18} %write{17,17}
+temp	float	$tmp17	%read{19,19} %write{18,18}
+temp	float	$tmp18	%read{21,21} %write{19,19}
+const	float	$const11	12		%read{19,169} %write{2147483647,-1}
+temp	float	$tmp19	%read{21,21} %write{20,20}
+temp	float	$tmp20	%read{22,22} %write{21,21}
+temp	float	$tmp21	%read{42,42} %write{31,31}
+temp	float	$tmp22	%read{25,25} %write{23,23}
+temp	float	$tmp23	%read{25,25} %write{24,24}
+temp	float	$tmp24	%read{27,27} %write{25,25}
+temp	float	$tmp25	%read{27,27} %write{26,26}
+temp	float	$tmp26	%read{28,28} %write{27,27}
+temp	float	$tmp27	%read{30,30} %write{28,28}
+const	float	$const13	21		%read{28,178} %write{2147483647,-1}
+temp	float	$tmp28	%read{30,30} %write{29,29}
+temp	float	$tmp29	%read{31,31} %write{30,30}
+temp	float	$tmp30	%read{42,42} %write{41,41}
+temp	float	$tmp31	%read{34,34} %write{32,32}
+temp	float	$tmp32	%read{34,34} %write{33,33}
+temp	float	$tmp33	%read{36,36} %write{34,34}
+temp	float	$tmp34	%read{36,36} %write{35,35}
+temp	float	$tmp35	%read{37,37} %write{36,36}
+temp	float	$tmp36	%read{38,38} %write{37,37}
+temp	float	$tmp37	%read{40,40} %write{38,38}
+const	float	$const15	23		%read{38,188} %write{2147483647,-1}
+temp	float	$tmp38	%read{40,40} %write{39,39}
+temp	float	$tmp39	%read{41,41} %write{40,40}
+temp	float	$tmp40	%read{43,43} %write{42,42}
+temp	float	$tmp41	%read{64,64} %write{43,43}
+temp	float	$tmp42	%read{63,63} %write{52,52}
+temp	float	$tmp43	%read{46,46} %write{44,44}
+temp	float	$tmp44	%read{46,46} %write{45,45}
+temp	float	$tmp45	%read{48,48} %write{46,46}
+temp	float	$tmp46	%read{48,48} %write{47,47}
+temp	float	$tmp47	%read{49,49} %write{48,48}
+temp	float	$tmp48	%read{51,51} %write{49,49}
+const	float	$const17	32		%read{49,199} %write{2147483647,-1}
+temp	float	$tmp49	%read{51,51} %write{50,50}
+temp	float	$tmp50	%read{52,52} %write{51,51}
+temp	float	$tmp51	%read{63,63} %write{62,62}
+temp	float	$tmp52	%read{55,55} %write{53,53}
+temp	float	$tmp53	%read{55,55} %write{54,54}
+temp	float	$tmp54	%read{57,57} %write{55,55}
+temp	float	$tmp55	%read{57,57} %write{56,56}
+temp	float	$tmp56	%read{58,58} %write{57,57}
+temp	float	$tmp57	%read{59,59} %write{58,58}
+temp	float	$tmp58	%read{61,61} %write{59,59}
+const	float	$const19	34		%read{59,209} %write{2147483647,-1}
+temp	float	$tmp59	%read{61,61} %write{60,60}
+temp	float	$tmp60	%read{62,62} %write{61,61}
+temp	float	$tmp61	%read{64,64} %write{63,63}
+temp	float	$tmp62	%read{74,74} %write{64,64}
+temp	float	$tmp63	%read{74,74} %write{73,73}
+temp	float	$tmp64	%read{67,67} %write{65,65}
+temp	float	$tmp65	%read{67,67} %write{66,66}
+temp	float	$tmp66	%read{69,69} %write{67,67}
+temp	float	$tmp67	%read{69,69} %write{68,68}
+temp	float	$tmp68	%read{70,70} %write{69,69}
+temp	float	$tmp69	%read{72,72} %write{70,70}
+const	float	$const21	43		%read{70,220} %write{2147483647,-1}
+temp	float	$tmp70	%read{72,72} %write{71,71}
+temp	float	$tmp71	%read{73,73} %write{72,72}
+temp	float	$tmp72	%read{76,76} %write{75,75}
+temp	float	$tmp73	%read{77,77} %write{76,76}
+temp	float	$tmp74	%read{79,79} %write{77,77}
+temp	float	$tmp75	%read{79,79} %write{78,78}
+temp	float	$tmp76	%read{80,80} %write{79,79}
+temp	float	$tmp77	%read{157,157} %write{156,156}
+temp	float	$tmp78	%read{156,156} %write{155,155}
+temp	float	$tmp79	%read{84,84} %write{83,83}
+temp	float	$tmp80	%read{86,86} %write{84,84}
+temp	float	$tmp81	%read{86,86} %write{85,85}
+temp	float	$tmp82	%read{151,151} %write{86,86}
+temp	float	$tmp83	%read{150,150} %write{149,149}
+temp	float	$tmp84	%read{118,118} %write{97,97}
+temp	float	$tmp85	%read{90,90} %write{88,88}
+temp	float	$tmp86	%read{90,90} %write{89,89}
+temp	float	$tmp87	%read{92,92} %write{90,90}
+temp	float	$tmp88	%read{92,92} %write{91,91}
+temp	float	$tmp89	%read{93,93} %write{92,92}
+temp	float	$tmp90	%read{94,94} %write{93,93}
+temp	float	$tmp91	%read{96,96} %write{94,94}
+temp	float	$tmp92	%read{96,96} %write{95,95}
+temp	float	$tmp93	%read{97,97} %write{96,96}
+temp	float	$tmp94	%read{117,117} %write{106,106}
+temp	float	$tmp95	%read{100,100} %write{98,98}
+temp	float	$tmp96	%read{100,100} %write{99,99}
+temp	float	$tmp97	%read{102,102} %write{100,100}
+temp	float	$tmp98	%read{102,102} %write{101,101}
+temp	float	$tmp99	%read{103,103} %write{102,102}
+temp	float	$tmp100	%read{105,105} %write{103,103}
+temp	float	$tmp101	%read{105,105} %write{104,104}
+temp	float	$tmp102	%read{106,106} %write{105,105}
+temp	float	$tmp103	%read{117,117} %write{116,116}
+temp	float	$tmp104	%read{109,109} %write{107,107}
+temp	float	$tmp105	%read{109,109} %write{108,108}
+temp	float	$tmp106	%read{111,111} %write{109,109}
+temp	float	$tmp107	%read{111,111} %write{110,110}
+temp	float	$tmp108	%read{112,112} %write{111,111}
+temp	float	$tmp109	%read{113,113} %write{112,112}
+temp	float	$tmp110	%read{115,115} %write{113,113}
+temp	float	$tmp111	%read{115,115} %write{114,114}
+temp	float	$tmp112	%read{116,116} %write{115,115}
+temp	float	$tmp113	%read{118,118} %write{117,117}
+temp	float	$tmp114	%read{139,139} %write{118,118}
+temp	float	$tmp115	%read{138,138} %write{127,127}
+temp	float	$tmp116	%read{121,121} %write{119,119}
+temp	float	$tmp117	%read{121,121} %write{120,120}
+temp	float	$tmp118	%read{123,123} %write{121,121}
+temp	float	$tmp119	%read{123,123} %write{122,122}
+temp	float	$tmp120	%read{124,124} %write{123,123}
+temp	float	$tmp121	%read{126,126} %write{124,124}
+temp	float	$tmp122	%read{126,126} %write{125,125}
+temp	float	$tmp123	%read{127,127} %write{126,126}
+temp	float	$tmp124	%read{138,138} %write{137,137}
+temp	float	$tmp125	%read{130,130} %write{128,128}
+temp	float	$tmp126	%read{130,130} %write{129,129}
+temp	float	$tmp127	%read{132,132} %write{130,130}
+temp	float	$tmp128	%read{132,132} %write{131,131}
+temp	float	$tmp129	%read{133,133} %write{132,132}
+temp	float	$tmp130	%read{134,134} %write{133,133}
+temp	float	$tmp131	%read{136,136} %write{134,134}
+temp	float	$tmp132	%read{136,136} %write{135,135}
+temp	float	$tmp133	%read{137,137} %write{136,136}
+temp	float	$tmp134	%read{139,139} %write{138,138}
+temp	float	$tmp135	%read{149,149} %write{139,139}
+temp	float	$tmp136	%read{149,149} %write{148,148}
+temp	float	$tmp137	%read{142,142} %write{140,140}
+temp	float	$tmp138	%read{142,142} %write{141,141}
+temp	float	$tmp139	%read{144,144} %write{142,142}
+temp	float	$tmp140	%read{144,144} %write{143,143}
+temp	float	$tmp141	%read{145,145} %write{144,144}
+temp	float	$tmp142	%read{147,147} %write{145,145}
+temp	float	$tmp143	%read{147,147} %write{146,146}
+temp	float	$tmp144	%read{148,148} %write{147,147}
+temp	float	$tmp145	%read{151,151} %write{150,150}
+temp	float	$tmp146	%read{152,152} %write{151,151}
+temp	float	$tmp147	%read{154,154} %write{152,152}
+temp	float	$tmp148	%read{154,154} %write{153,153}
+temp	float	$tmp149	%read{155,155} %write{154,154}
+temp	float	$tmp150	%read{232,232} %write{231,231}
+temp	float	$tmp151	%read{231,231} %write{230,230}
+temp	float	$tmp152	%read{159,159} %write{158,158}
+temp	float	$tmp153	%read{161,161} %write{159,159}
+temp	float	$tmp154	%read{161,161} %write{160,160}
+temp	float	$tmp155	%read{226,226} %write{161,161}
+temp	float	$tmp156	%read{225,225} %write{224,224}
+temp	float	$tmp157	%read{193,193} %write{172,172}
+temp	float	$tmp158	%read{165,165} %write{163,163}
+temp	float	$tmp159	%read{165,165} %write{164,164}
+temp	float	$tmp160	%read{167,167} %write{165,165}
+temp	float	$tmp161	%read{167,167} %write{166,166}
+temp	float	$tmp162	%read{168,168} %write{167,167}
+temp	float	$tmp163	%read{169,169} %write{168,168}
+temp	float	$tmp164	%read{171,171} %write{169,169}
+temp	float	$tmp165	%read{171,171} %write{170,170}
+temp	float	$tmp166	%read{172,172} %write{171,171}
+temp	float	$tmp167	%read{192,192} %write{181,181}
+temp	float	$tmp168	%read{175,175} %write{173,173}
+temp	float	$tmp169	%read{175,175} %write{174,174}
+temp	float	$tmp170	%read{177,177} %write{175,175}
+temp	float	$tmp171	%read{177,177} %write{176,176}
+temp	float	$tmp172	%read{178,178} %write{177,177}
+temp	float	$tmp173	%read{180,180} %write{178,178}
+temp	float	$tmp174	%read{180,180} %write{179,179}
+temp	float	$tmp175	%read{181,181} %write{180,180}
+temp	float	$tmp176	%read{192,192} %write{191,191}
+temp	float	$tmp177	%read{184,184} %write{182,182}
+temp	float	$tmp178	%read{184,184} %write{183,183}
+temp	float	$tmp179	%read{186,186} %write{184,184}
+temp	float	$tmp180	%read{186,186} %write{185,185}
+temp	float	$tmp181	%read{187,187} %write{186,186}
+temp	float	$tmp182	%read{188,188} %write{187,187}
+temp	float	$tmp183	%read{190,190} %write{188,188}
+temp	float	$tmp184	%read{190,190} %write{189,189}
+temp	float	$tmp185	%read{191,191} %write{190,190}
+temp	float	$tmp186	%read{193,193} %write{192,192}
+temp	float	$tmp187	%read{214,214} %write{193,193}
+temp	float	$tmp188	%read{213,213} %write{202,202}
+temp	float	$tmp189	%read{196,196} %write{194,194}
+temp	float	$tmp190	%read{196,196} %write{195,195}
+temp	float	$tmp191	%read{198,198} %write{196,196}
+temp	float	$tmp192	%read{198,198} %write{197,197}
+temp	float	$tmp193	%read{199,199} %write{198,198}
+temp	float	$tmp194	%read{201,201} %write{199,199}
+temp	float	$tmp195	%read{201,201} %write{200,200}
+temp	float	$tmp196	%read{202,202} %write{201,201}
+temp	float	$tmp197	%read{213,213} %write{212,212}
+temp	float	$tmp198	%read{205,205} %write{203,203}
+temp	float	$tmp199	%read{205,205} %write{204,204}
+temp	float	$tmp200	%read{207,207} %write{205,205}
+temp	float	$tmp201	%read{207,207} %write{206,206}
+temp	float	$tmp202	%read{208,208} %write{207,207}
+temp	float	$tmp203	%read{209,209} %write{208,208}
+temp	float	$tmp204	%read{211,211} %write{209,209}
+temp	float	$tmp205	%read{211,211} %write{210,210}
+temp	float	$tmp206	%read{212,212} %write{211,211}
+temp	float	$tmp207	%read{214,214} %write{213,213}
+temp	float	$tmp208	%read{224,224} %write{214,214}
+temp	float	$tmp209	%read{224,224} %write{223,223}
+temp	float	$tmp210	%read{217,217} %write{215,215}
+temp	float	$tmp211	%read{217,217} %write{216,216}
+temp	float	$tmp212	%read{219,219} %write{217,217}
+temp	float	$tmp213	%read{219,219} %write{218,218}
+temp	float	$tmp214	%read{220,220} %write{219,219}
+temp	float	$tmp215	%read{222,222} %write{220,220}
+temp	float	$tmp216	%read{222,222} %write{221,221}
+temp	float	$tmp217	%read{223,223} %write{222,222}
+temp	float	$tmp218	%read{226,226} %write{225,225}
+temp	float	$tmp219	%read{227,227} %write{226,226}
+temp	float	$tmp220	%read{229,229} %write{227,227}
+const	float	$const23	3		%read{227,227} %write{2147483647,-1}
+temp	float	$tmp221	%read{229,229} %write{228,228}
+temp	float	$tmp222	%read{230,230} %write{229,229}
+code ___main___
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:43
+# 	fr = dot(N, E);
+	neg		$tmp1 I 	%filename{"C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl"} %line{43} %argrw{"wr"}
+	normalize	E $tmp1 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:44
+# 	_space = pow(1 - fr, 1/gamma);
+	dot		fr N E 	%line{44} %argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:45
+# 	_incidence = mix(0, 1, _space);
+	sub		$tmp2 $const2 fr 	%line{45} %argrw{"wrr"}
+	div		$tmp3 $const2 gamma 	%argrw{"wrr"}
+	pow		_space $tmp2 $tmp3 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:46
+# 	_iridColor = iridescence(fr, nmult, ofreq, ooset, nfreq, noset);
+	mix		_incidence $const4 $const2 _space 	%line{46} %argrw{"wrrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:47
+# 	Cout = _iridColor*_incidence;
+	functioncall	$const5 234 	%line{47} %argrw{"r"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:23
+# 	irid[1] = abs(cos(2*M_PI*orient*freqA[1] + diNoise(freqB, offsetB)*noiseMult + 2 + offsetA[1]));
+	mul		$tmp6 $const8 $const7 	%line{23} %argrw{"wrr"}
+	mul		$tmp7 $tmp6 fr 	%argrw{"wrr"}
+	compref		$tmp8 ofreq $const3 	%argrw{"wrr"}
+	mul		$tmp9 $tmp7 $tmp8 	%argrw{"wrr"}
+	functioncall	$const9 75 	%argrw{"r"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:8
+# 			sin(2*M_PI*P[1]*freq[1]*2 + 23 + offset[1]) + cos(2*M_PI*P[1]*freq[1] + 32 + offset[1]) *
+	mul		$tmp12 $const8 $const7 	%line{8} %argrw{"wrr"}
+	compref		$tmp13 P $const3 	%argrw{"wrr"}
+	mul		$tmp14 $tmp12 $tmp13 	%argrw{"wrr"}
+	compref		$tmp15 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp16 $tmp14 $tmp15 	%argrw{"wrr"}
+	mul		$tmp17 $tmp16 $const8 	%argrw{"wrr"}
+	add		$tmp18 $tmp17 $const11 	%argrw{"wrr"}
+	compref		$tmp19 noset $const3 	%argrw{"wrr"}
+	add		$tmp20 $tmp18 $tmp19 	%argrw{"wrr"}
+	sin		$tmp11 $tmp20 	%argrw{"wr"}
+	mul		$tmp22 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp23 P $const6 	%argrw{"wrr"}
+	mul		$tmp24 $tmp22 $tmp23 	%argrw{"wrr"}
+	compref		$tmp25 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp26 $tmp24 $tmp25 	%argrw{"wrr"}
+	add		$tmp27 $tmp26 $const13 	%argrw{"wrr"}
+	compref		$tmp28 noset $const3 	%argrw{"wrr"}
+	add		$tmp29 $tmp27 $tmp28 	%argrw{"wrr"}
+	cos		$tmp21 $tmp29 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:9
+# 			sin(2*M_PI*P[2]*freq[2]*2 + 34 + offset[2]) + cos(2*M_PI*P[0]*freq[2] + 43 + offset[2]);
+	mul		$tmp31 $const8 $const7 	%line{9} %argrw{"wrr"}
+	compref		$tmp32 P $const1 	%argrw{"wrr"}
+	mul		$tmp33 $tmp31 $tmp32 	%argrw{"wrr"}
+	compref		$tmp34 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp35 $tmp33 $tmp34 	%argrw{"wrr"}
+	mul		$tmp36 $tmp35 $const8 	%argrw{"wrr"}
+	add		$tmp37 $tmp36 $const15 	%argrw{"wrr"}
+	compref		$tmp38 noset $const1 	%argrw{"wrr"}
+	add		$tmp39 $tmp37 $tmp38 	%argrw{"wrr"}
+	sin		$tmp30 $tmp39 	%argrw{"wr"}
+	mul		$tmp40 $tmp21 $tmp30 	%argrw{"wrr"}
+	add		$tmp41 $tmp11 $tmp40 	%argrw{"wrr"}
+	mul		$tmp43 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp44 P $const1 	%argrw{"wrr"}
+	mul		$tmp45 $tmp43 $tmp44 	%argrw{"wrr"}
+	compref		$tmp46 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp47 $tmp45 $tmp46 	%argrw{"wrr"}
+	add		$tmp48 $tmp47 $const17 	%argrw{"wrr"}
+	compref		$tmp49 noset $const1 	%argrw{"wrr"}
+	add		$tmp50 $tmp48 $tmp49 	%argrw{"wrr"}
+	cos		$tmp42 $tmp50 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:10
+# }
+	mul		$tmp52 $const8 $const7 	%line{10} %argrw{"wrr"}
+	compref		$tmp53 P $const6 	%argrw{"wrr"}
+	mul		$tmp54 $tmp52 $tmp53 	%argrw{"wrr"}
+	compref		$tmp55 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp56 $tmp54 $tmp55 	%argrw{"wrr"}
+	mul		$tmp57 $tmp56 $const8 	%argrw{"wrr"}
+	add		$tmp58 $tmp57 $const19 	%argrw{"wrr"}
+	compref		$tmp59 noset $const6 	%argrw{"wrr"}
+	add		$tmp60 $tmp58 $tmp59 	%argrw{"wrr"}
+	sin		$tmp51 $tmp60 	%argrw{"wr"}
+	mul		$tmp61 $tmp42 $tmp51 	%argrw{"wrr"}
+	add		$tmp62 $tmp41 $tmp61 	%argrw{"wrr"}
+	mul		$tmp64 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp65 P $const3 	%argrw{"wrr"}
+	mul		$tmp66 $tmp64 $tmp65 	%argrw{"wrr"}
+	compref		$tmp67 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp68 $tmp66 $tmp67 	%argrw{"wrr"}
+	add		$tmp69 $tmp68 $const21 	%argrw{"wrr"}
+	compref		$tmp70 noset $const6 	%argrw{"wrr"}
+	add		$tmp71 $tmp69 $tmp70 	%argrw{"wrr"}
+	cos		$tmp63 $tmp71 	%argrw{"wr"}
+	add		$tmp10 $tmp62 $tmp63 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:23
+# 	irid[1] = abs(cos(2*M_PI*orient*freqA[1] + diNoise(freqB, offsetB)*noiseMult + 2 + offsetA[1]));
+	mul		$tmp72 $tmp10 nmult 	%line{23} %argrw{"wrr"}
+	add		$tmp73 $tmp9 $tmp72 	%argrw{"wrr"}
+	add		$tmp74 $tmp73 $const2 	%argrw{"wrr"}
+	compref		$tmp75 ooset $const3 	%argrw{"wrr"}
+	add		$tmp76 $tmp74 $tmp75 	%argrw{"wrr"}
+	cos		$tmp5 $tmp76 	%argrw{"wr"}
+	abs		$tmp4 $tmp5 	%argrw{"wr"}
+	compassign	___332_irid $const3 $tmp4 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:24
+# 	irid[2] = abs(cos(2*M_PI*orient*freqA[2] + diNoise(freqB, offsetB)*noiseMult + 3 + offsetA[2]));
+	mul		$tmp79 $const8 $const7 	%line{24} %argrw{"wrr"}
+	mul		$tmp80 $tmp79 fr 	%argrw{"wrr"}
+	compref		$tmp81 ofreq $const1 	%argrw{"wrr"}
+	mul		$tmp82 $tmp80 $tmp81 	%argrw{"wrr"}
+	functioncall	$const9 150 	%argrw{"r"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:8
+# 			sin(2*M_PI*P[1]*freq[1]*2 + 23 + offset[1]) + cos(2*M_PI*P[1]*freq[1] + 32 + offset[1]) *
+	mul		$tmp85 $const8 $const7 	%line{8} %argrw{"wrr"}
+	compref		$tmp86 P $const3 	%argrw{"wrr"}
+	mul		$tmp87 $tmp85 $tmp86 	%argrw{"wrr"}
+	compref		$tmp88 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp89 $tmp87 $tmp88 	%argrw{"wrr"}
+	mul		$tmp90 $tmp89 $const8 	%argrw{"wrr"}
+	add		$tmp91 $tmp90 $const11 	%argrw{"wrr"}
+	compref		$tmp92 noset $const3 	%argrw{"wrr"}
+	add		$tmp93 $tmp91 $tmp92 	%argrw{"wrr"}
+	sin		$tmp84 $tmp93 	%argrw{"wr"}
+	mul		$tmp95 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp96 P $const6 	%argrw{"wrr"}
+	mul		$tmp97 $tmp95 $tmp96 	%argrw{"wrr"}
+	compref		$tmp98 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp99 $tmp97 $tmp98 	%argrw{"wrr"}
+	add		$tmp100 $tmp99 $const13 	%argrw{"wrr"}
+	compref		$tmp101 noset $const3 	%argrw{"wrr"}
+	add		$tmp102 $tmp100 $tmp101 	%argrw{"wrr"}
+	cos		$tmp94 $tmp102 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:9
+# 			sin(2*M_PI*P[2]*freq[2]*2 + 34 + offset[2]) + cos(2*M_PI*P[0]*freq[2] + 43 + offset[2]);
+	mul		$tmp104 $const8 $const7 	%line{9} %argrw{"wrr"}
+	compref		$tmp105 P $const1 	%argrw{"wrr"}
+	mul		$tmp106 $tmp104 $tmp105 	%argrw{"wrr"}
+	compref		$tmp107 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp108 $tmp106 $tmp107 	%argrw{"wrr"}
+	mul		$tmp109 $tmp108 $const8 	%argrw{"wrr"}
+	add		$tmp110 $tmp109 $const15 	%argrw{"wrr"}
+	compref		$tmp111 noset $const1 	%argrw{"wrr"}
+	add		$tmp112 $tmp110 $tmp111 	%argrw{"wrr"}
+	sin		$tmp103 $tmp112 	%argrw{"wr"}
+	mul		$tmp113 $tmp94 $tmp103 	%argrw{"wrr"}
+	add		$tmp114 $tmp84 $tmp113 	%argrw{"wrr"}
+	mul		$tmp116 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp117 P $const1 	%argrw{"wrr"}
+	mul		$tmp118 $tmp116 $tmp117 	%argrw{"wrr"}
+	compref		$tmp119 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp120 $tmp118 $tmp119 	%argrw{"wrr"}
+	add		$tmp121 $tmp120 $const17 	%argrw{"wrr"}
+	compref		$tmp122 noset $const1 	%argrw{"wrr"}
+	add		$tmp123 $tmp121 $tmp122 	%argrw{"wrr"}
+	cos		$tmp115 $tmp123 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:10
+# }
+	mul		$tmp125 $const8 $const7 	%line{10} %argrw{"wrr"}
+	compref		$tmp126 P $const6 	%argrw{"wrr"}
+	mul		$tmp127 $tmp125 $tmp126 	%argrw{"wrr"}
+	compref		$tmp128 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp129 $tmp127 $tmp128 	%argrw{"wrr"}
+	mul		$tmp130 $tmp129 $const8 	%argrw{"wrr"}
+	add		$tmp131 $tmp130 $const19 	%argrw{"wrr"}
+	compref		$tmp132 noset $const6 	%argrw{"wrr"}
+	add		$tmp133 $tmp131 $tmp132 	%argrw{"wrr"}
+	sin		$tmp124 $tmp133 	%argrw{"wr"}
+	mul		$tmp134 $tmp115 $tmp124 	%argrw{"wrr"}
+	add		$tmp135 $tmp114 $tmp134 	%argrw{"wrr"}
+	mul		$tmp137 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp138 P $const3 	%argrw{"wrr"}
+	mul		$tmp139 $tmp137 $tmp138 	%argrw{"wrr"}
+	compref		$tmp140 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp141 $tmp139 $tmp140 	%argrw{"wrr"}
+	add		$tmp142 $tmp141 $const21 	%argrw{"wrr"}
+	compref		$tmp143 noset $const6 	%argrw{"wrr"}
+	add		$tmp144 $tmp142 $tmp143 	%argrw{"wrr"}
+	cos		$tmp136 $tmp144 	%argrw{"wr"}
+	add		$tmp83 $tmp135 $tmp136 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:24
+# 	irid[2] = abs(cos(2*M_PI*orient*freqA[2] + diNoise(freqB, offsetB)*noiseMult + 3 + offsetA[2]));
+	mul		$tmp145 $tmp83 nmult 	%line{24} %argrw{"wrr"}
+	add		$tmp146 $tmp82 $tmp145 	%argrw{"wrr"}
+	add		$tmp147 $tmp146 $const8 	%argrw{"wrr"}
+	compref		$tmp148 ooset $const1 	%argrw{"wrr"}
+	add		$tmp149 $tmp147 $tmp148 	%argrw{"wrr"}
+	cos		$tmp78 $tmp149 	%argrw{"wr"}
+	abs		$tmp77 $tmp78 	%argrw{"wr"}
+	compassign	___332_irid $const1 $tmp77 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:25
+# 	return irid;
+	mul		$tmp152 $const8 $const7 	%line{25} %argrw{"wrr"}
+	mul		$tmp153 $tmp152 fr 	%argrw{"wrr"}
+	compref		$tmp154 ofreq $const6 	%argrw{"wrr"}
+	mul		$tmp155 $tmp153 $tmp154 	%argrw{"wrr"}
+	functioncall	$const9 225 	%argrw{"r"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:8
+# 			sin(2*M_PI*P[1]*freq[1]*2 + 23 + offset[1]) + cos(2*M_PI*P[1]*freq[1] + 32 + offset[1]) *
+	mul		$tmp158 $const8 $const7 	%line{8} %argrw{"wrr"}
+	compref		$tmp159 P $const3 	%argrw{"wrr"}
+	mul		$tmp160 $tmp158 $tmp159 	%argrw{"wrr"}
+	compref		$tmp161 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp162 $tmp160 $tmp161 	%argrw{"wrr"}
+	mul		$tmp163 $tmp162 $const8 	%argrw{"wrr"}
+	add		$tmp164 $tmp163 $const11 	%argrw{"wrr"}
+	compref		$tmp165 noset $const3 	%argrw{"wrr"}
+	add		$tmp166 $tmp164 $tmp165 	%argrw{"wrr"}
+	sin		$tmp157 $tmp166 	%argrw{"wr"}
+	mul		$tmp168 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp169 P $const6 	%argrw{"wrr"}
+	mul		$tmp170 $tmp168 $tmp169 	%argrw{"wrr"}
+	compref		$tmp171 nfreq $const3 	%argrw{"wrr"}
+	mul		$tmp172 $tmp170 $tmp171 	%argrw{"wrr"}
+	add		$tmp173 $tmp172 $const13 	%argrw{"wrr"}
+	compref		$tmp174 noset $const3 	%argrw{"wrr"}
+	add		$tmp175 $tmp173 $tmp174 	%argrw{"wrr"}
+	cos		$tmp167 $tmp175 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:9
+# 			sin(2*M_PI*P[2]*freq[2]*2 + 34 + offset[2]) + cos(2*M_PI*P[0]*freq[2] + 43 + offset[2]);
+	mul		$tmp177 $const8 $const7 	%line{9} %argrw{"wrr"}
+	compref		$tmp178 P $const1 	%argrw{"wrr"}
+	mul		$tmp179 $tmp177 $tmp178 	%argrw{"wrr"}
+	compref		$tmp180 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp181 $tmp179 $tmp180 	%argrw{"wrr"}
+	mul		$tmp182 $tmp181 $const8 	%argrw{"wrr"}
+	add		$tmp183 $tmp182 $const15 	%argrw{"wrr"}
+	compref		$tmp184 noset $const1 	%argrw{"wrr"}
+	add		$tmp185 $tmp183 $tmp184 	%argrw{"wrr"}
+	sin		$tmp176 $tmp185 	%argrw{"wr"}
+	mul		$tmp186 $tmp167 $tmp176 	%argrw{"wrr"}
+	add		$tmp187 $tmp157 $tmp186 	%argrw{"wrr"}
+	mul		$tmp189 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp190 P $const1 	%argrw{"wrr"}
+	mul		$tmp191 $tmp189 $tmp190 	%argrw{"wrr"}
+	compref		$tmp192 nfreq $const1 	%argrw{"wrr"}
+	mul		$tmp193 $tmp191 $tmp192 	%argrw{"wrr"}
+	add		$tmp194 $tmp193 $const17 	%argrw{"wrr"}
+	compref		$tmp195 noset $const1 	%argrw{"wrr"}
+	add		$tmp196 $tmp194 $tmp195 	%argrw{"wrr"}
+	cos		$tmp188 $tmp196 	%argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:10
+# }
+	mul		$tmp198 $const8 $const7 	%line{10} %argrw{"wrr"}
+	compref		$tmp199 P $const6 	%argrw{"wrr"}
+	mul		$tmp200 $tmp198 $tmp199 	%argrw{"wrr"}
+	compref		$tmp201 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp202 $tmp200 $tmp201 	%argrw{"wrr"}
+	mul		$tmp203 $tmp202 $const8 	%argrw{"wrr"}
+	add		$tmp204 $tmp203 $const19 	%argrw{"wrr"}
+	compref		$tmp205 noset $const6 	%argrw{"wrr"}
+	add		$tmp206 $tmp204 $tmp205 	%argrw{"wrr"}
+	sin		$tmp197 $tmp206 	%argrw{"wr"}
+	mul		$tmp207 $tmp188 $tmp197 	%argrw{"wrr"}
+	add		$tmp208 $tmp187 $tmp207 	%argrw{"wrr"}
+	mul		$tmp210 $const8 $const7 	%argrw{"wrr"}
+	compref		$tmp211 P $const3 	%argrw{"wrr"}
+	mul		$tmp212 $tmp210 $tmp211 	%argrw{"wrr"}
+	compref		$tmp213 nfreq $const6 	%argrw{"wrr"}
+	mul		$tmp214 $tmp212 $tmp213 	%argrw{"wrr"}
+	add		$tmp215 $tmp214 $const21 	%argrw{"wrr"}
+	compref		$tmp216 noset $const6 	%argrw{"wrr"}
+	add		$tmp217 $tmp215 $tmp216 	%argrw{"wrr"}
+	cos		$tmp209 $tmp217 	%argrw{"wr"}
+	add		$tmp156 $tmp208 $tmp209 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:25
+# 	return irid;
+	mul		$tmp218 $tmp156 nmult 	%line{25} %argrw{"wrr"}
+	add		$tmp219 $tmp155 $tmp218 	%argrw{"wrr"}
+	add		$tmp220 $tmp219 $const23 	%argrw{"wrr"}
+	compref		$tmp221 ooset $const6 	%argrw{"wrr"}
+	add		$tmp222 $tmp220 $tmp221 	%argrw{"wrr"}
+	cos		$tmp151 $tmp222 	%argrw{"wr"}
+	abs		$tmp150 $tmp151 	%argrw{"wr"}
+	compassign	___332_irid $const6 $tmp150 	%argrw{"wrr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:26
+# }
+	assign		_iridColor ___332_irid 	%line{26} %argrw{"wr"}
+# C:\\Users\\Manaus\\Downloads\\github\\shading\\osl\\iridescence_simple\\iridescence_simple.osl:48
+# }
+	mul		Cout _iridColor _incidence 	%line{48} %argrw{"wrr"}
+	end
